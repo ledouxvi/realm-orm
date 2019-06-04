@@ -158,13 +158,13 @@ export default class Model extends RealmObject {
   static insert (data) {
     return new Promise(async (resolve) => {
         if (Array.isArray(data)) {
-          const results = []
-          for (const row of data) {
-            DB.db.write(async () => {
-              const obj = await this.doInsert(row);
-              results.push(obj)
-            });
-          }
+          const results = [];
+          DB.db.beginTransaction();
+                for (const row of data) {
+                  const obj = await this.doInsert(row);
+                  results.push(obj);
+                }
+          DB.db.commitTransaction();
           resolve(results);
           return;
         }
