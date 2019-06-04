@@ -196,7 +196,12 @@ export default class Model extends RealmObject {
         const currentId = this.query().max(this.schema.primaryKey) || 0;
         data[this.schema.primaryKey] = currentId + 1;
       }
-      DB.db.create(this.schema.name, data, this.hasPrimary(data));
+      try {
+        DB.db.create(this.schema.name, data, this.hasPrimary(data));
+      }
+      catch (e) {
+        console.log('doInsert error', e);
+      }
       const alreadyExisted = this.find(data[this.schema.primaryKey]);
       if (alreadyExisted) {
         resolve(alreadyExisted);
