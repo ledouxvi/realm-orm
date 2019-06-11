@@ -1,5 +1,6 @@
 import RealmQuery from './libs/query';
 import Realm from 'realm'; // eslint-disable-line
+import firebase from 'react-native-firebase';
 import DB from './';
 import merge from './libs/merge';
 
@@ -211,6 +212,8 @@ export default class Model extends RealmObject {
       }
       catch (e) {
         console.log('doInsert error', e);
+        console.log("data :", data);
+        firebase.crashlytics().recordError(0, `RN Fatal: ${e.message} ${data}`);
       }
       const alreadyExisted = this.find(data[this.schema.primaryKey]);
       if (alreadyExisted) {
