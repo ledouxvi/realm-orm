@@ -4,30 +4,12 @@ import firebase from 'react-native-firebase';
 import DB from './';
 import merge from './libs/merge';
 
-const isNode = () => typeof process === 'object' && process + '' === '[object process]';
-
-/* istanbul ignore next  */
-class FakeRealmObject {
-  isValid () {
-    console.warn('isValid not available in node');
-  }
-
-  objectSchema () {
-    console.warn('objectSchema not available in node');
-  }
-
-  linkingObjects () {
-    console.warn('linkingObjects not available in node');
-  }
-}
-
-const RealmObject = isNode() ? FakeRealmObject : /* istanbul ignore next  */ Realm.Object;
 
 /**
  *
  * @class Model
  */
-export default class Model extends RealmObject {
+export default class Model {
 
   /**
    * Model schema
