@@ -168,7 +168,7 @@ export default class Model {
     });
   }
 
-  static onCrash(message) =>
+  static onCrash(message)
   {
   }
 
