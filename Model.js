@@ -168,6 +168,10 @@ export default class Model {
     });
   }
 
+  static onCrash(message) =>
+  {
+  }
+
   /**
    * @private
    * @param {any} data
@@ -195,7 +199,7 @@ export default class Model {
       catch (e) {
         console.log('doInsert error', e);
         console.log("data :", data);
-        firebase.crashlytics().recordError(0, `RN Fatal: ${e.message} ${data}`);
+        this.onCrash(`RN Fatal: ${e.message} ${data}`);
       }
       const alreadyExisted = this.find(data[this.schema.primaryKey]);
       if (alreadyExisted) {
